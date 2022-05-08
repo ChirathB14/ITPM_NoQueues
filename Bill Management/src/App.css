@@ -1,0 +1,87 @@
+body {
+  font-family: "Red Hat Display", sans-serif;
+  overflow: overlay;
+}
+
+.page-container {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+}
+
+.content-wrap {
+  flex: 1;
+}
+
+input.error {
+  border: 1px solid red;
+}
+
+input.error:focus {
+  border: 1px solid red;
+}
+
+.errorMessage {
+  color: red;
+  font-size: 0.75em;
+  display: relative;
+}
+
+/* index.css */
+
+.row {
+  display: flex;
+  justify-content: space-between;
+}
+.row.center {
+  align-items: center;
+}
+.col-1 {
+  flex: 1;
+}
+.col-2 {
+  flex: 2;
+}
+.block {
+  background-color: #e4e3e3;
+  padding: 1rem;
+  border-radius: 0.5rem;
+}
+.text-right {
+  text-align: right;
+}
+
+button.add {
+  width: 2.5rem;
+}
+button.remove {
+  width: 2.5rem;
+}
+
+button.delete {
+  width: 5rem;
+}
+
+button.badge {
+  background-color: #f04040;
+  border: none;
+  color: #ffffff;
+  width: 1.5rem;
+}
+
+.nav-link:hover {
+  background-color: #494a4b;
+  border-radius: 5px;
+  color:white!important;
+}
+
+/* scroll bar styling */
+body::-webkit-scrollbar {
+  width: 8px;               /* width of the entire scrollbar */
+}
+
+body::-webkit-scrollbar-thumb {
+  background-color: rgb(12, 12, 12);    /* color of the scroll thumb */
+  border-radius: 20px;       /*roundness of the scroll thumb */
+  border: 1px solid rgb(172, 171, 171);  /*creates padding around scroll thumb*/
+}
