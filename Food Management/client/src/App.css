@@ -1,0 +1,33 @@
+body {
+  font-family: "Red Hat Display", sans-serif;
+}
+
+.page-container {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+}
+
+.content-wrap {
+  flex: 1;
+}
+
+input.error {
+  border: 1px solid red;
+}
+
+input.error:focus {
+  border: 1px solid red;
+}
+
+.errorMessage {
+  color: red;
+  font-size: 0.75em;
+  display: relative;
+}
+
+.nav-link:hover {
+  background-color: #494a4b;
+  border-radius: 5px;
+  color:white!important;
+}
