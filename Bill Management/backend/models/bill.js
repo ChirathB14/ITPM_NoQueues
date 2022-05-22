@@ -4,17 +4,18 @@ const billSchema = new mongoose.Schema(
   {
     billItems: [
       {
-        id: { type: String, required: true },
+        _id: { type: String, required: true },
         name: { type: String, required: true },
         price: { type: Number, required: true },
         qty: { type: Number, required: true },
+        quantity: { type: String, required: true },
       },
     ],
     totalPrice: { type: Number, required: true },
-    },
-    {
-        timestamps: true
-    }
+  },
+  {
+    timestamps: true,
+  }
 );
 
 module.exports = mongoose.model('Bill', billSchema);

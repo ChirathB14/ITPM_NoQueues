@@ -1,7 +1,6 @@
 import React from "react";
 import Product from "./Product";
 import { Row } from "react-bootstrap";
-import axios from "axios";
 import { useState } from "react";
 
 export default function Main(props) {
@@ -13,7 +12,9 @@ export default function Main(props) {
       sProducts.filter(
         (product) =>
           product.name.toLowerCase().includes(searchKey) ||
-          product.price.toString().includes(searchKey)
+          product.price.toString().includes(searchKey) ||
+          product.description.toLowerCase().toString().includes(searchKey) ||
+          product.category.toLowerCase().toString().includes(searchKey)
       )
     );
   };
@@ -23,7 +24,6 @@ export default function Main(props) {
     console.log(searchKey);
     filterData(products, searchKey);
   };
-
 
   return (
     <div className="container card-deck">
@@ -39,12 +39,12 @@ export default function Main(props) {
       </div>
       <Row style={{ marginTop: "20px" }}>
         {sproducts.length === 0 && (
-          <div className="text-center  alert-warning py-3">
-            No prodcuts found.
+          <div className="text-center  alert-danger py-3">
+            No products found.
           </div>
         )}
         {sproducts.map((product) => (
-          <Product key={product.id} product={product} onAdd={onAdd}></Product>
+          <Product key={product._id} product={product} onAdd={onAdd}></Product>
         ))}
       </Row>
     </div>

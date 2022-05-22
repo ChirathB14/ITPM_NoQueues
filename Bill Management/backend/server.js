@@ -8,6 +8,7 @@ const app = express();
 //import routes
 const billRoutes = require('./routes/bills');
 const productRoutes = require('./routes/products');
+const foodRoutes = require("./routes/foods");
 
 //app middleware
 app.use(bodyParser.json());
@@ -16,6 +17,7 @@ app.use(cors());
 //route middleware
 app.use(billRoutes);
 app.use(productRoutes);
+app.use("/food", foodRoutes);
 
 const PORT = 8006;
 // const DB_URL = 'mongodb+srv://root:root@cluster1.v01tq.mongodb.net/billTest?retryWrites=true&w=majority';

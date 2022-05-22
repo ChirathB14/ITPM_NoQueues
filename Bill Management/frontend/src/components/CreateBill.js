@@ -1,16 +1,32 @@
 import React from "react";
-import data from "../data";
 import "../App.css";
 import axios from "axios";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import Main from "./Main";
 import { Row, Col } from "react-bootstrap";
 import { toast } from "react-toastify";
 
 export default function CreateBill(props) {
-  const { products } = data;
+  const [products, setProducts] = useState();
   const [cartItems, setCartItems] = useState([]);
   const [billSaving, setBillSaving] = useState(undefined);
+
+  const retrieveProducts = () => {
+    axios
+      .get(`/food`)
+      .then((res) => {
+        if (res.data.success) {
+          setProducts(res.data.data.products);
+        }
+      })
+      .catch(function (error) {
+        console.log(error);
+      });
+  };
+
+  useEffect(() => {
+    retrieveProducts();
+  }, []);
 
   const itemsPrice = cartItems.reduce(
     (total, current) => total + current.qty * current.price,
@@ -19,11 +35,11 @@ export default function CreateBill(props) {
   const totalPrice = itemsPrice;
 
   const onAdd = (product) => {
-    const exist = cartItems.find((x) => x.id === product.id);
+    const exist = cartItems.find((x) => x._id === product._id);
     if (exist) {
       setCartItems(
         cartItems.map((x) =>
-          x.id === product.id ? { ...exist, qty: exist.qty + 1 } : x
+          x._id === product._id ? { ...exist, qty: exist.qty + 1 } : x
         )
       );
     } else {
@@ -32,13 +48,13 @@ export default function CreateBill(props) {
   };
 
   const onRemove = (product) => {
-    const exist = cartItems.find((x) => x.id === product.id);
+    const exist = cartItems.find((x) => x._id === product._id);
     if (exist.qty === 1) {
-      setCartItems(cartItems.filter((x) => x.id !== product.id));
+      setCartItems(cartItems.filter((x) => x._id !== product._id));
     } else {
       setCartItems(
         cartItems.map((x) =>
-          x.id === product.id ? { ...exist, qty: exist.qty - 1 } : x
+          x._id === product._id ? { ...exist, qty: exist.qty - 1 } : x
         )
       );
     }
@@ -60,16 +76,16 @@ export default function CreateBill(props) {
           setTimeout(() => {
             setBillSaving(false);
             toast.success("Bill successfully created!");
-          }, 400);
+          }, 200);
         } else {
           toast.error("Bill create failed!");
         }
       });
-    }, 1000);
+    }, 200);
   };
 
   const onDelete = (product) => {
-    setCartItems(cartItems.filter((x) => x.id !== product.id));
+    setCartItems(cartItems.filter((x) => x._id !== product._id));
   };
 
   return (
@@ -77,7 +93,7 @@ export default function CreateBill(props) {
       <Row>
         <Col>
           <div className="container">
-            <Main products={products} onAdd={onAdd}></Main>
+            {products && <Main products={products} onAdd={onAdd}></Main>}
           </div>
         </Col>
         <Col>
@@ -95,7 +111,7 @@ export default function CreateBill(props) {
             )}
             {cartItems.map((item) => (
               <div
-                key={item.id}
+                key={item._id}
                 className="row container"
                 style={{ paddingTop: "10px" }}
               >
@@ -123,7 +139,7 @@ export default function CreateBill(props) {
                 </div>
 
                 <div className="col-4 text-right">
-                  {item.qty} x LKR {item.price.toFixed(2)}
+                  {item.qty} x LKR {parseFloat(item.price)}
                 </div>
               </div>
             ))}

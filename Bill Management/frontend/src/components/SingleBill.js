@@ -92,7 +92,7 @@ export default class SingleBill extends Component {
               {(billItems || []).map((items, index) => (
                 <tr key={index}>
                   <th scope="row"> {index + 1} </th>
-                  <td>{items.id.substring(0, 10)}</td>
+                  <td>{items._id.substring(0, 10)}</td>
                   <td>{items.name}</td>
                   <td> LKR {items.price} </td>
                   <td className="text-center"> {items.qty} </td>
